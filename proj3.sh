@@ -119,7 +119,7 @@ do
     echo "----------------------------------------"
     echo "   File-Tree                            "
     echo "----------------------------------------"
-    ./script.sh /home/ ~/filetree.html 2>/dev/null
+    ./proj1.sh /home/ ~/filetree.html 2>/dev/null
   elif [ $number == 9 ]
   then
     echo "----------------------------------------"
