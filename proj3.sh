@@ -47,35 +47,84 @@ do
   elif [ $number == 1 ]
   then
     echo "----------------------------------------"
-    echo "  System Information               "
+    echo "  System Information                    "
     echo "----------------------------------------"
     echo "Operating system : Linux"
-    /usr/bin/lsb_release -a $this
-    echo $this
+    /usr/bin/lsb_release -a $sysinfo
+    echo $sysinfo
   elif [ $number == 2 ]
   then
-    echo "Here:2"
+    echo "----------------------------------------"
+    echo "  Hostname and DNS information          "
+    echo "----------------------------------------"
+    host=$(hostname)
+  	dns=$(hostname -d)
+  	fqdn=$(hostname -f)
+  	ipaddr=$(hostname -I)
+  	nameserver=$(grep -o "nameserver.*" /etc/resolv.conf | cut -c 12-)
+  	echo "Hostname : $host"
+  	echo "DNS Domain : $dns"
+  	echo "Fully Qualified Domain Name : $fqdn"
+  	echo "Network Address (IP) : $ipaddr"
+  	echo "DNS name servers (DNS IP) : $nameserver"
   elif [ $number == 3 ]
   then
-    echo "Here:3"
+    echo "----------------------------------------"
+    echo "  Network Information                   "
+    echo "----------------------------------------"
+    interfaces=$(ls -A /sys/class/net | wc -l)
+    echo "Total network interfaces found: $interfaces"
+  	echo "*** IP Addresses Information ***"
+  	ip addr $ipaddress
+    echo $ipaddress
+  	echo "****************************************"
+  	echo "*** Network Routing ****"
+  	echo "****************************************"
+  	netstat -rn $networkRouting
+    echo $networkRouting
+  	echo "****************************************"
+  	echo "*** Interface Traffic Information ***"
+  	echo "****************************************"
+  	netstat -i $traffic
+    echo $traffic
   elif [ $number == 4 ]
   then
-    echo "Here:4"
+    echo "----------------------------------------"
+    echo "  Who is online                         "
+    echo "----------------------------------------"
+    who -H $whoIsOnline
+    echo $whoIsOnline
   elif [ $number == 5 ]
   then
-    echo "Here:5"
+    echo "----------------------------------------"
+    echo "  List of last logged in users          "
+    echo "----------------------------------------"
+    last | head -n 10 $noUsers
+    echo $noUsers
   elif [ $number == 6 ]
   then
-    echo "Here:6"
+    echo "----------------------------------------"
+    echo "  Public IP information                 "
+    echo "----------------------------------------"
+    myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
+    echo $myip
   elif [ $number == 7 ]
   then
-    echo "Here:7"
+    echo "----------------------------------------"
+    echo "  Disk Usage Info                       "
+    echo "----------------------------------------"
+    df --output=source,pcent
   elif [ $number == 8 ]
   then
-    echo "Here:8"
+    echo "----------------------------------------"
+    echo "   File-Tree                            "
+    echo "----------------------------------------"
+    ./script.sh /home/ ~/filetree.html 2>/dev/null
   elif [ $number == 9 ]
   then
-    echo "Here:9"
+    echo "----------------------------------------"
+    echo "  Process operations                    "
+    echo "----------------------------------------"
   fi
   echo "Press [Enter] key to continue.."
   read number
